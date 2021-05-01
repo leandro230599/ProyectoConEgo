@@ -1,0 +1,128 @@
+	*{
+		box-sizing: border-box;
+		padding: 0;
+		margin:0;
+		}	
+
+a{
+	color:black;
+	text-decoration: none;
+
+}
+.nav a{
+	color:Black;
+}
+ul{
+	padding: 0,0;
+	margin: 0,0;
+}
+h1 {
+	color:Black;
+}
+
+body{
+	background-image:url("Images/asd.jfif"); 
+	background-size: 100%;
+
+}
+
+.CerrarMesa , .AbrirMesa , .AgregarProduct  
+{
+	border: black 3px inset;
+	border: black 3px outset;
+	margin-left:  10px ;
+	margin-right: 10px;
+	font-family: sans-serif;
+	text-decoration: none;
+	text-align: center;
+}
+
+.FotosMenu{
+	width: 25px;
+	height: 25px;
+	margin-right: 10px;
+	margin-left:  10px ;
+	visibility:hidden;
+
+}
+.Titulo{
+		background-color: white;
+visibility: hidden;
+margin-top: 0px;
+margin-bottom:0px;
+padding: 10px 10px ;
+font-size: 50px;
+text-align: center;	
+display:none;	
+}
+.nav{
+	padding: 40px 10px ;
+	background-color: white;
+	display:flex;
+	flex-direction:row;
+	list-style:none;
+	  justify-content: center;
+	  font-size:35px;
+	  display: none;
+
+margin-top: 0px;
+margin-bottom:15px;
+	text-decoration: none;
+
+	height: 40px;
+}
+.botones{
+		display:flex;
+
+	flex-direction: row;
+	 justify-content: center;
+	height: 40px;
+	background-color: white;
+}
+
+.boton  {
+	margin: 0 10px 0 10px;
+	font-size: 200px;
+}
+header{
+	 padding:0;
+}
+
+li{
+display:none;	
+
+}
+
+.mesas{
+	display:inline-block;
+
+	text-decoration: none;
+}
+.titulomesa{
+	text-align: center;	
+
+	text-decoration: none;
+}
+.libre{
+	display: flex;
+	width: 50px;
+	height: 50px;
+	margin-left: auto;
+  margin-right: auto;
+}
+.article{
+		display:inline-block;
+
+	background: rgba(255, 255, 255, 0.73);
+	 border-radius: 20px;
+border: 10px double;
+margin-top: 4px;
+}
+.probando
+{
+	 display: flex;
+	 flex-direction: row;
+}
+article h1 {
+	text-align: center;
+}
