@@ -36,4 +36,6 @@ elemento = document.getElementById('section');
 elemento.appendChild(article);
 x++;}, false);
 function hola () { let hola="hola"
+asdasdasdas;
 }
+
