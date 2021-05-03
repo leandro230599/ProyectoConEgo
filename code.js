@@ -5,7 +5,12 @@ const article = document.createElement('article');
 article.classList.add('article');
 const h1 = document.createElement('h1');
 var Cantidad = localStorage.getItem("Cantidad");
+alert(Cantidad);
+if (Cantidad==null){
+Cantidad=0;
+}
 h1.innerHTML="Mesa"+" "+Cantidad;
+
 h1.classList.add('titulomesa');
  
 
@@ -33,15 +38,12 @@ article.appendChild(img);
 article.appendChild(p);
 article.appendChild(div);
 elemento = document.getElementById('section');
-Cantidad++;
+Cantidad++ ;
 localStorage.setItem("Cantidad", Cantidad); 
-
 elemento.appendChild(article);
 
 }, false);
-function hola () { let hola="hola"
-asdasdasdas;
-}
+
 
 window.onload=function() {
     var Cantidad = localStorage.getItem("Cantidad");
