@@ -25,8 +25,11 @@ const a1 = document.createElement('a');
 const a2 = document.createElement('a');
 const a3 = document.createElement('a');
 a1.innerHTML="Abrir Mesa ";
-a2.innerHTML="Cerrar Mesa ";
-a3.innerHTML="Agregar Producto ";
+    a1.setAttribute("id", "AM"+Cantidad);
+    a2.innerHTML="Cerrar Mesa ";
+    a2.setAttribute("id", "CM"+Cantidad);
+    a3.innerHTML="Agregar Producto ";
+    a3.setAttribute("id", "AP"+Cantidad);
 a1.classList.add('AbrirMesa');
 a2.classList.add('CerrarMesa');
 a3.classList.add('AgregarProduct');
@@ -42,8 +45,9 @@ article.setAttribute("id",Cantidad);
 Cantidad++ ;
 localStorage.setItem("Cantidad", Cantidad); 
 elemento.appendChild(article);
-
+MesaHabilitada(Cantidad-1);
 }, false);
+
 
 
 window.onload=function() {
@@ -60,6 +64,33 @@ window.onload=function() {
     }
    
 }
+//aca deberia buscar la forma de ver como "saber el Id"
+const BotonAbrirMesa = document.getElementById("AM"+Id);
+Console.log(BotonAbrirMesa) ;
+
+BotonAbrirMesa.addEventListener('click',Habilitolamesa(Id) );
+
+function Habilitolamesa( b ){
+    const botonCerrarMesa = document.getElementById("CM"+b);
+    const botonAgregarProducto = document.getElementById("AP"+b);
+    botonCerrarMesa.style.visibility = 'visible'
+    botonAgregarProducto.style.visibility='visible' 
+    
+
+
+}
+
+
+function  MesaHabilitada(Id){
+  
+   
+   const botonCerrarMesa = document.getElementById("CM"+Id);
+   
+   const botonAgregarProducto = document.getElementById("AP"+Id);
+   botonCerrarMesa.style.visibility = 'hidden'
+   botonAgregarProducto.style.visibility='hidden' 
+}
+
 
 
 function agregarmesa (ID) {
@@ -81,11 +112,11 @@ function agregarmesa (ID) {
     const a2 = document.createElement('a');
     const a3 = document.createElement('a');
     a1.innerHTML="Abrir Mesa ";
-    a1.setAttribute("id", ID);
+    a1.setAttribute("id", "AM"+ID);
     a2.innerHTML="Cerrar Mesa ";
-    a2.setAttribute("id", ID);
+    a2.setAttribute("id", "CM"+ID);
     a3.innerHTML="Agregar Producto ";
-    a3.setAttribute("id", ID);
+    a3.setAttribute("id", "AP"+ID);
     a1.classList.add('AbrirMesa');
     a2.classList.add('CerrarMesa');
     a3.classList.add('AgregarProduct');
@@ -99,6 +130,7 @@ function agregarmesa (ID) {
     elemento = document.getElementById('section');
     article.setAttribute("id", ID);
     elemento.appendChild(article);
+    MesaHabilitada(ID);
     
     
 }
