@@ -21,11 +21,11 @@ img.src='images/libre.png';
 const p = document.createElement('p');
 const div= document.createElement('div');
 div.classList.add('probando');
-const a1 = document.createElement('a');
+const a1 = document.createElement('Button');
 const a2 = document.createElement('a');
 const a3 = document.createElement('a');
 a1.innerHTML="Abrir Mesa ";
-    a1.setAttribute("id", "AM"+Cantidad);
+    a1.setAttribute("id", `AM${Cantidad}`);
     a2.innerHTML="Cerrar Mesa ";
     a2.setAttribute("id", "CM"+Cantidad);
     a3.innerHTML="Agregar Producto ";
@@ -42,13 +42,19 @@ article.appendChild(p);
 article.appendChild(div);
 elemento = document.getElementById('section');
 article.setAttribute("id",Cantidad);
-Cantidad++ ;
-localStorage.setItem("Cantidad", Cantidad); 
+
 elemento.appendChild(article);
-MesaHabilitada(Cantidad-1);
+MesaHabilitada(Cantidad);
+const BotonAbrirMesa = document.getElementById(`AM${Cantidad}`);
+alert(`AM${Cantidad}`);
+
+BotonAbrirMesa.addEventListener('click',Habilitolamesa(Cantidad ));
+Cantidad++ ;
+
+localStorage.setItem("Cantidad", Cantidad); 
 }, false);
 
-
+// arriba esta el habilito mesa que se ejecuta siempre , 
 
 window.onload=function() {
     var Cantidad = localStorage.getItem("Cantidad");
@@ -64,13 +70,9 @@ window.onload=function() {
     }
    
 }
-//aca deberia buscar la forma de ver como "saber el Id"
-const BotonAbrirMesa = document.getElementById("AM"+Id);
-Console.log(BotonAbrirMesa) ;
-
-BotonAbrirMesa.addEventListener('click',Habilitolamesa(Id) );
 
 function Habilitolamesa( b ){
+    alert('entroa habilitomesa');
     const botonCerrarMesa = document.getElementById("CM"+b);
     const botonAgregarProducto = document.getElementById("AP"+b);
     botonCerrarMesa.style.visibility = 'visible'
@@ -108,7 +110,7 @@ function agregarmesa (ID) {
     const p = document.createElement('p');
     const div= document.createElement('div');
     div.classList.add('probando');
-    const a1 = document.createElement('a');
+    const a1 = document.createElement('Button');
     const a2 = document.createElement('a');
     const a3 = document.createElement('a');
     a1.innerHTML="Abrir Mesa ";
@@ -131,6 +133,9 @@ function agregarmesa (ID) {
     article.setAttribute("id", ID);
     elemento.appendChild(article);
     MesaHabilitada(ID);
+    
+const BotonAbrirMesa = document.getElementById("AM"+ID);
+
     
     
 }
