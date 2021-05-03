@@ -47,14 +47,13 @@ elemento.appendChild(article);
 MesaHabilitada(Cantidad);
 const BotonAbrirMesa = document.getElementById(`AM${Cantidad}`);
 alert(`AM${Cantidad}`);
-
-BotonAbrirMesa.addEventListener('click',Habilitolamesa(Cantidad ));
+BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(Cantidad-1 ));
 Cantidad++ ;
 
 localStorage.setItem("Cantidad", Cantidad); 
 }, false);
 
-// arriba esta el habilito mesa que se ejecuta siempre , 
+
 
 window.onload=function() {
     var Cantidad = localStorage.getItem("Cantidad");
@@ -71,11 +70,12 @@ window.onload=function() {
    
 }
 
-function Habilitolamesa( b ){
-    alert('entroa habilitomesa');
+const Habilitolamesa = b => {
+    
     const botonCerrarMesa = document.getElementById("CM"+b);
     const botonAgregarProducto = document.getElementById("AP"+b);
     botonCerrarMesa.style.visibility = 'visible'
+    
     botonAgregarProducto.style.visibility='visible' 
     
 
@@ -134,8 +134,9 @@ function agregarmesa (ID) {
     elemento.appendChild(article);
     MesaHabilitada(ID);
     
-const BotonAbrirMesa = document.getElementById("AM"+ID);
+const BotonAbrirMesa = document.getElementById(`AM${ID}`);
 
+BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(ID));
     
     
 }
