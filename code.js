@@ -5,7 +5,7 @@ const article = document.createElement('article');
 article.classList.add('article');
 const h1 = document.createElement('h1');
 var Cantidad = localStorage.getItem("Cantidad");
-alert(Cantidad);
+
 if (Cantidad==null){
 Cantidad=0;
 }
@@ -38,6 +38,7 @@ article.appendChild(img);
 article.appendChild(p);
 article.appendChild(div);
 elemento = document.getElementById('section');
+article.setAttribute("id",Cantidad);
 Cantidad++ ;
 localStorage.setItem("Cantidad", Cantidad); 
 elemento.appendChild(article);
@@ -47,11 +48,15 @@ elemento.appendChild(article);
 
 window.onload=function() {
     var Cantidad = localStorage.getItem("Cantidad");
+    
     if (Cantidad != null){
-        for (let index = 0; index < Cantidad; index++) {
+        var index;
+        for ( index = 0; index < Cantidad; index++) {
             agregarmesa(index);
+            
         }
-
+        localStorage.setItem("Cantidad", (index)); 
+        
     }
    
 }
@@ -63,7 +68,7 @@ function agregarmesa (ID) {
     const h1 = document.createElement('h1');
     h1.innerHTML="Mesa"+" "+ID;
     h1.classList.add('titulomesa');
-     
+    
     
     const img = document.createElement('img');
     img.classList.add('libre');
@@ -76,8 +81,11 @@ function agregarmesa (ID) {
     const a2 = document.createElement('a');
     const a3 = document.createElement('a');
     a1.innerHTML="Abrir Mesa ";
+    a1.setAttribute("id", ID);
     a2.innerHTML="Cerrar Mesa ";
+    a2.setAttribute("id", ID);
     a3.innerHTML="Agregar Producto ";
+    a3.setAttribute("id", ID);
     a1.classList.add('AbrirMesa');
     a2.classList.add('CerrarMesa');
     a3.classList.add('AgregarProduct');
@@ -91,9 +99,7 @@ function agregarmesa (ID) {
     elemento = document.getElementById('section');
     article.setAttribute("id", ID);
     elemento.appendChild(article);
-    ID++;
-    localStorage.setItem("Cantidad", ID); 
-
+    
     
 }
 
