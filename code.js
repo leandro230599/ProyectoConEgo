@@ -17,13 +17,14 @@ h1.classList.add('titulomesa');
 const img = document.createElement('img');
 img.classList.add('libre');
 img.src='images/libre.png';
+img.setAttribute("id",'F'+Cantidad);
 
 const p = document.createElement('p');
 const div= document.createElement('div');
 div.classList.add('probando');
 const a1 = document.createElement('Button');
-const a2 = document.createElement('a');
-const a3 = document.createElement('a');
+const a2 = document.createElement('Button');
+const a3 = document.createElement('Button');
 a1.innerHTML="Abrir Mesa ";
     a1.setAttribute("id", `AM${Cantidad}`);
     a2.innerHTML="Cerrar Mesa ";
@@ -44,10 +45,13 @@ elemento = document.getElementById('section');
 article.setAttribute("id",Cantidad);
 
 elemento.appendChild(article);
-MesaHabilitada(Cantidad);
+ MesaHabilitada(Cantidad);
 const BotonAbrirMesa = document.getElementById(`AM${Cantidad}`);
-alert(`AM${Cantidad}`);
+
 BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(Cantidad-1 ));
+const botonCerrarMesa = document.getElementById(`CM${Cantidad}`);
+
+botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(Cantidad-1 ));
 Cantidad++ ;
 
 localStorage.setItem("Cantidad", Cantidad); 
@@ -71,7 +75,11 @@ window.onload=function() {
 }
 
 const Habilitolamesa = b => {
-    
+    const Foto = document.getElementById("F"+b);
+    Foto.src='images/Ocupado.png';
+    const BotonAbrirMesa = document.getElementById("AM"+b);
+   BotonAbrirMesa.style.visibility = 'hidden'
+
     const botonCerrarMesa = document.getElementById("CM"+b);
     const botonAgregarProducto = document.getElementById("AP"+b);
     botonCerrarMesa.style.visibility = 'visible'
@@ -92,7 +100,19 @@ function  MesaHabilitada(Id){
    botonCerrarMesa.style.visibility = 'hidden'
    botonAgregarProducto.style.visibility='hidden' 
 }
-
+function  MesaHabilitada2(b){
+  
+    const Foto = document.getElementById("F"+b);
+    Foto.src='images/Libre.png';
+    const BotonAbrirMesa = document.getElementById("AM"+b);
+   BotonAbrirMesa.style.visibility = 'visible'
+   
+    const botonCerrarMesa = document.getElementById("CM"+b);
+    
+    const botonAgregarProducto = document.getElementById("AP"+b);
+    botonCerrarMesa.style.visibility = 'hidden'
+    botonAgregarProducto.style.visibility='hidden' 
+ }
 
 
 function agregarmesa (ID) {
@@ -106,13 +126,13 @@ function agregarmesa (ID) {
     const img = document.createElement('img');
     img.classList.add('libre');
     img.src='images/libre.png';
-    
+    img.setAttribute("id",'F'+ID); 
     const p = document.createElement('p');
     const div= document.createElement('div');
     div.classList.add('probando');
     const a1 = document.createElement('Button');
-    const a2 = document.createElement('a');
-    const a3 = document.createElement('a');
+    const a2 = document.createElement('Button');
+    const a3 = document.createElement('Button');
     a1.innerHTML="Abrir Mesa ";
     a1.setAttribute("id", "AM"+ID);
     a2.innerHTML="Cerrar Mesa ";
@@ -137,8 +157,13 @@ function agregarmesa (ID) {
 const BotonAbrirMesa = document.getElementById(`AM${ID}`);
 
 BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(ID));
-    
+const botonCerrarMesa = document.getElementById(`CM${ID}`);
+
+botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(ID ));    
     
 }
 
-
+/* HABRIA QUE:
+VER COMO QUEREMOS CONTROLAR LOS PRODUCTOS QUE SE VENDEN (BD O JS O MEMORIA CACHE)
+COMO CALCULAR LOS PRODUCTOS COMIDOS EN EL MOMENTO(una mezcla de consultar en lo de arriba y sumarlo)
+VER LOS PAGOS(con lo de arriba generar el valor y ofrecer medios de pago)*/
