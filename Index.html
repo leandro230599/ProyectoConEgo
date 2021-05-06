@@ -14,9 +14,11 @@
 		<nav
 			class="nav">			
 				<li>
+					
 					<img src="images/AgregarProducto.jfif"
-					class="FotosMenu">					
-					<a href="#">Agregar Producto</a>										
+					class="FotosMenu">				
+					 <a href="#openModal">Agregar Producto</a>	
+												
 				</li>	
 				<li>
 					<img src="images/editar.png"
@@ -34,9 +36,10 @@
 
 		</nav>
 		<div class="botones">
-				<button class="boton" type="button">AGREGAR PRODUCTO</button>
+			<button class="boton" role="link" onclick="window.location='#openModal'">AGREGAR PRODUCTO</button>
+			
 				<button class="boton" type="button">EDITAR PRODUCTO</button>
-				<button id="agregarmesa" class="boton" type="button">AGREGAR MESA</button>
+				<button id="agregarmesa" class="boton"  type="button">AGREGAR MESA</button>
 					
 		</div>
 	</header>
@@ -46,6 +49,20 @@
 							
 	</section>
 	<script src="code.js"></script>
+
+	<div id="openModal" class="modalDialog">
+		<div>
+			<a href="#close" title="Close" class="close">X</a>
+			<form method="GET">
+			<p>Nombre: <input type="text" name="nombre" required></p>
+			<p>Valor: <input type="text" name="Valor" required></p>
+			<p>
+				<input type="submit" value="Enviar">
+				<input type="reset" value="Borrar">
+			  </p>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
 
