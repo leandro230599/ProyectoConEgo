@@ -167,3 +167,15 @@ botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(ID ));
 VER COMO QUEREMOS CONTROLAR LOS PRODUCTOS QUE SE VENDEN (BD O JS O MEMORIA CACHE)
 COMO CALCULAR LOS PRODUCTOS COMIDOS EN EL MOMENTO(una mezcla de consultar en lo de arriba y sumarlo)
 VER LOS PAGOS(con lo de arriba generar el valor y ofrecer medios de pago)*/
+
+const BotoneNVIAR = document.getElementById('Enviar');
+btnAdd.addEventListener('click',( ) => Probando());
+function Probando (){
+    let valTextBox2 = document.getElementById('Nombre').value;
+    var  textbox = document.getElementById('Formulario').getElementsById('Nombre');
+
+
+    let valTextBox = document.getElementById('Valor').value;
+    alert(textbox);
+    console.log(valTextBox2);
+}
