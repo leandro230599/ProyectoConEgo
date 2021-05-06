@@ -60,6 +60,7 @@ localStorage.setItem("Cantidad", Cantidad);
 
 
 window.onload=function() {
+   
     var Cantidad = localStorage.getItem("Cantidad");
     
     if (Cantidad != null){
@@ -168,14 +169,26 @@ VER COMO QUEREMOS CONTROLAR LOS PRODUCTOS QUE SE VENDEN (BD O JS O MEMORIA CACHE
 COMO CALCULAR LOS PRODUCTOS COMIDOS EN EL MOMENTO(una mezcla de consultar en lo de arriba y sumarlo)
 VER LOS PAGOS(con lo de arriba generar el valor y ofrecer medios de pago)*/
 
-const BotoneNVIAR = document.getElementById('Enviar');
-btnAdd.addEventListener('click',( ) => Probando());
-function Probando (){
-    let valTextBox2 = document.getElementById('Nombre').value;
-    var  textbox = document.getElementById('Formulario').getElementsById('Nombre');
 
 
-    let valTextBox = document.getElementById('Valor').value;
-    alert(textbox);
-    console.log(valTextBox2);
-}
+
+
+
+        const AgregarProducto = document.getElementById("AgregarProducto");
+       
+        
+        AgregarProducto.addEventListener('click', function(){ 
+            
+            window.location='#openModal';  
+           var BotoneNVIAR = document.getElementById("Enviar");
+           BotoneNVIAR.addEventListener('click', function(e){ 
+               e.preventDefault( e);
+               var value = document.getElementById('Producto').value;
+               var value2 = document.getElementById('Valor').value;
+               console.log(value);
+               console.log(value2);
+                Windows.close();
+          },
+        false);
+       
+    }, false);

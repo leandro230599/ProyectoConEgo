@@ -36,7 +36,7 @@
 
 		</nav>
 		<div class="botones">
-			<button class="boton" role="link" onclick="window.location='#openModal'">AGREGAR PRODUCTO</button>
+			<button  id="AgregarProducto" class="boton" >AGREGAR PRODUCTO</button>
 			
 				<button class="boton" type="button">EDITAR PRODUCTO</button>
 				<button id="agregarmesa" class="boton"  type="button">AGREGAR MESA</button>
@@ -51,13 +51,13 @@
 	<script src="code.js"></script>
 
 	<div id="openModal" class="modalDialog">
-		<div>
+		<div id="aux">
 			<a href="#close" title="Close" class="close">X</a>
 			<form method="GET" id='Formulario'> 
-			<p>Nombre: <input type="text" name="nombre" id='Nombre'required></p>
+			<p>Producto: <input type="text" name="nombre" id='Producto'required></p>
 			<p>Valor: <input type="text" id='Valor' name="Valor" required></p>
 			<p>
-				<input type="submit" id="Enviar" value="Enviar">
+				<input type="submit" href="#close" id="Enviar" value="Enviar">
 				<input type="reset" value="Borrar">
 			  </p>
 			</form>
