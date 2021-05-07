@@ -170,25 +170,56 @@ COMO CALCULAR LOS PRODUCTOS COMIDOS EN EL MOMENTO(una mezcla de consultar en lo 
 VER LOS PAGOS(con lo de arriba generar el valor y ofrecer medios de pago)*/
 
 
+// Voy a hacer el objeto Producto que va a tener , Nombre de producto valor e id 
 
 
 
+
+function Producto(dato1,dato2,dato3){
+    this.Nombre=dato1;
+    this.Valor=dato2;
+    this.id=dato3;
+}
 
         const AgregarProducto = document.getElementById("AgregarProducto");
        
-        
+        // HACE UNA VUELTA DE MAS NI IDEA XQ 
         AgregarProducto.addEventListener('click', function(){ 
             
             window.location='#openModal';  
-           var BotoneNVIAR = document.getElementById("Enviar");
-           BotoneNVIAR.addEventListener('click', function(e){ 
-               e.preventDefault( e);
-               var value = document.getElementById('Producto').value;
-               var value2 = document.getElementById('Valor').value;
-               console.log(value);
-               console.log(value2);
-                Windows.close();
-          },
-        false);
+           
        
     }, false);
+
+
+    var BotoneNVIAR = document.getElementById("Enviar");
+           BotoneNVIAR.addEventListener('click', function(e){ 
+            var  ArregloDeProductos = [];   
+            e.preventDefault( e);
+               var value = document.getElementById('Producto').value;
+               var value2 = document.getElementById('Valor').value;
+                ArregloDeProductos = localStorage.getItem("Arreglo");
+                ArregloDeProductos = JSON.parse(ArregloDeProductos);
+               if(ArregloDeProductos ==null){
+                    console.log('entro al if')
+                                ArregloDeProductos =  [];
+               }
+               
+            Producto2 = new Producto(value,value2,ArregloDeProductos.length);  
+            console.log( Producto.id); 
+               ArregloDeProductos.unshift(Producto2);
+               
+               ArregloDeProductos.forEach(element => {
+                 
+                console.log(element); 
+               });
+               localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
+              
+               console.log(''+ ArregloDeProductos.length) 
+                          
+              document.getElementById("Producto").value = ""; 
+               document.getElementById("Valor").value = ""; 
+               window.location='#section' ;
+               console.log('vuelta ')
+          },
+        false);
