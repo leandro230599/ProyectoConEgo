@@ -202,17 +202,67 @@ function Producto(dato1,dato2,dato3){
                 ArregloDeProductos = JSON.parse(ArregloDeProductos);
                if(ArregloDeProductos ==null){
                     console.log('entro al if')
-                                ArregloDeProductos =  [];
+                    ArregloDeProductos =  [];
                }
                
             Producto2 = new Producto(value,value2,ArregloDeProductos.length);  
-            console.log( Producto.id); 
-               ArregloDeProductos.unshift(Producto2);
-               
-               ArregloDeProductos.forEach(element => {
+            aux=false;
+            ArregloDeProductos.forEach(element => {
                  
-                console.log(element); 
+                if (element.Nombre==Producto2.Nombre){
+                    alert("Ya esta este elemento guardado");
+                    aux=true;
+                } 
+
                });
+               if(aux==false){
+               ArregloDeProductos.unshift(Producto2);
+               }
+                       
+
+               
+               
+               localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
+              
+               console.log(''+ ArregloDeProductos.length) 
+                          
+              document.getElementById("Producto").value = ""; 
+               document.getElementById("Valor").value = ""; 
+               window.location='#section' ;
+               console.log('vuelta ')
+          },
+        false);
+
+         var BotoneNVIAR = document.getElementById("Enviar");
+           BotoneNVIAR.addEventListener('click', function(e){ 
+            var  ArregloDeProductos = [];   
+            e.preventDefault( e);
+               var value = document.getElementById('Producto').value;
+               var value2 = document.getElementById('Valor').value;
+                ArregloDeProductos = localStorage.getItem("Arreglo");
+                ArregloDeProductos = JSON.parse(ArregloDeProductos);
+               if(ArregloDeProductos ==null){
+                    console.log('entro al if')
+                    ArregloDeProductos =  [];
+               }
+               
+            Producto2 = new Producto(value,value2,ArregloDeProductos.length);  
+            aux=false;
+            ArregloDeProductos.forEach(element => {
+                 
+                if (element.Nombre==Producto2.Nombre){
+                    alert("Ya esta este elemento guardado");
+                    aux=true;
+                } 
+
+               });
+               if(aux==false){
+               ArregloDeProductos.unshift(Producto2);
+               }
+                       
+
+               
+               
                localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
               
                console.log(''+ ArregloDeProductos.length) 
