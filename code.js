@@ -183,7 +183,6 @@ function Producto(dato1,dato2,dato3){
 
         const AgregarProducto = document.getElementById("AgregarProducto");
        
-        // HACE UNA VUELTA DE MAS NI IDEA XQ 
         AgregarProducto.addEventListener('click', function(){ 
             
             window.location='#openModal';  
@@ -217,52 +216,13 @@ function Producto(dato1,dato2,dato3){
                });
                if(aux==false){
                ArregloDeProductos.unshift(Producto2);
-               }
-                       
-
-               
-               
-               localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
-              
-               console.log(''+ ArregloDeProductos.length) 
-                          
-              document.getElementById("Producto").value = ""; 
-               document.getElementById("Valor").value = ""; 
-               window.location='#section' ;
-               console.log('vuelta ')
-          },
-        false);
-
-         var BotoneNVIAR = document.getElementById("Enviar");
-           BotoneNVIAR.addEventListener('click', function(e){ 
-            var  ArregloDeProductos = [];   
-            e.preventDefault( e);
-               var value = document.getElementById('Producto').value;
-               var value2 = document.getElementById('Valor').value;
-                ArregloDeProductos = localStorage.getItem("Arreglo");
-                ArregloDeProductos = JSON.parse(ArregloDeProductos);
-               if(ArregloDeProductos ==null){
-                    console.log('entro al if')
-                    ArregloDeProductos =  [];
-               }
-               
-            Producto2 = new Producto(value,value2,ArregloDeProductos.length);  
-            aux=false;
-            ArregloDeProductos.forEach(element => {
+               }                      
+               ArregloDeProductos.forEach(element => {
                  
-                if (element.Nombre==Producto2.Nombre){
-                    alert("Ya esta este elemento guardado");
-                    aux=true;
-                } 
-
-               });
-               if(aux==false){
-               ArregloDeProductos.unshift(Producto2);
-               }
-                       
-
-               
-               
+                console.log(element)
+                 
+                
+               });            
                localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
               
                console.log(''+ ArregloDeProductos.length) 
@@ -273,3 +233,57 @@ function Producto(dato1,dato2,dato3){
                console.log('vuelta ')
           },
         false);
+
+        
+   const EditarProducto = document.getElementById("EditarProducto");
+       
+        EditarProducto.addEventListener('click', function(){ 
+            
+            window.location='#openModal2';  
+           
+       
+    }, false);  
+
+
+    var BotoneNVIAR2 = document.getElementById("Enviar2");
+    BotoneNVIAR2.addEventListener('click', function(e){ 
+     var  ArregloDeProductos = [];   
+     e.preventDefault( e);
+        var value = document.getElementById('Producto2').value;
+        var value2 = document.getElementById('Valor2').value;
+         ArregloDeProductos = localStorage.getItem("Arreglo");
+         ArregloDeProductos = JSON.parse(ArregloDeProductos);
+        if(ArregloDeProductos ==null){
+           
+             ArregloDeProductos =  [];
+        }
+        
+    
+     aux=false;
+     ArregloDeProductos.forEach(element => {
+         if (element.Nombre==value){
+            element.Nombre=value;
+            element.Valor=value2; 
+           
+            aux=true;
+         } 
+         
+        });
+        if (aux){
+            alert("Producto modificado")
+        }else{
+            alert("No se encontro el producto")
+        }
+        
+                            
+                
+        localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
+       
+      
+                   
+       document.getElementById("Producto").value = ""; 
+        document.getElementById("Valor").value = ""; 
+        window.location='#section' ;
+        
+   },
+ false);

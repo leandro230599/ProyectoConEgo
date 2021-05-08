@@ -38,7 +38,7 @@
 		<div class="botones">
 			<button  id="AgregarProducto" class="boton" >AGREGAR PRODUCTO</button>
 			
-				<button class="boton" type="button">EDITAR PRODUCTO</button>
+				<button id="EditarProducto" class="boton" type="button">EDITAR PRODUCTO</button>
 				<button id="agregarmesa" class="boton"  type="button">AGREGAR MESA</button>
 					
 		</div>
@@ -63,6 +63,25 @@
 			</form>
 		</div>
 	</div>
+
+	// Consultar a mauro que se podria hacer para esta repeticion de codigo 
+	<div id="openModal2" class="modalDialog">
+		<div>
+			<a href="#close" title="Close" class="close">X</a>
+			<form method="GET" id='Formulario'> 
+			<p>Producto: <input type="text" name="nombre" id='Producto2'required></p>
+			<p>Valor: <input type="text" id='Valor2' name="Valor" required></p>
+			<p>
+				<input type="submit" id="Enviar2" value="Enviar">
+				<input type="reset" value="Borrar">
+			  </p>
+			</form>
+		</div>
+	</div>
+
+
+
+
 	<script src="code.js"></script>
 </body>
 </html>
