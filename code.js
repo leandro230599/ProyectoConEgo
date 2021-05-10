@@ -52,6 +52,8 @@ BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(Cantidad-1 ));
 const botonCerrarMesa = document.getElementById(`CM${Cantidad}`);
 
 botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(Cantidad-1 ));
+
+
 Cantidad++ ;
 
 localStorage.setItem("Cantidad", Cantidad); 
@@ -86,15 +88,17 @@ const Habilitolamesa = b => {
     botonCerrarMesa.style.visibility = 'visible'
     
     botonAgregarProducto.style.visibility='visible' 
+    const AgregarProducto = document.getElementById(`AP${b}`);   
     
-
+    `AR${b}` =[]
 
 }
+function agregaralpedido (Id,NombreProducto){
+`AR${Id}`.unshift(localStorage.setItem(NombreProducto))
 
-
+}
 function  MesaHabilitada(Id){
-  
-   
+    
    const botonCerrarMesa = document.getElementById("CM"+Id);
    
    const botonAgregarProducto = document.getElementById("AP"+Id);
@@ -113,6 +117,12 @@ function  MesaHabilitada2(b){
     const botonAgregarProducto = document.getElementById("AP"+b);
     botonCerrarMesa.style.visibility = 'hidden'
     botonAgregarProducto.style.visibility='hidden' 
+    Total=0;
+    for (let index = 0; index < `AR${b}`.length; index++) {
+         element = `AR${b}`[index];
+        Total=element.Valor;
+    }
+    alert('valor total'+ valor);
  }
 
 
@@ -161,7 +171,9 @@ BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(ID));
 const botonCerrarMesa = document.getElementById(`CM${ID}`);
 
 botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(ID ));    
-    
+
+
+
 }
 
 /* HABRIA QUE:
