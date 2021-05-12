@@ -1,4 +1,7 @@
 //ESTO SE REPITE CODIGO PERO COMO NOSE BIEN MANEJAR ESTO HABRIA Q VER  TECNICAMENTE ES IGUAAL A AGREGAR MESA 
+
+
+const ArreglodeMesas =[];
 const btnAdd = document.getElementById('agregarmesa');
 btnAdd.addEventListener('click', function(){ 
 const article = document.createElement('article');
@@ -53,28 +56,31 @@ const botonCerrarMesa = document.getElementById(`CM${Cantidad}`);
 
 botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(Cantidad-1 ));
 
-
 Cantidad++ ;
-
 localStorage.setItem("Cantidad", Cantidad); 
 }, false);
 
 
 
 window.onload=function() {
-   
-    var Cantidad = localStorage.getItem("Cantidad");
     
+    var Cantidad = localStorage.getItem("Cantidad");
+   
     if (Cantidad != null){
         var index;
         for ( index = 0; index < Cantidad; index++) {
             agregarmesa(index);
-            
+                mesa= new MESA(index);
+              
+
+               
+                ArreglodeMesas.push(mesa);
+           
         }
         localStorage.setItem("Cantidad", (index)); 
-        
+      
     }
-   
+    
 }
 
 const Habilitolamesa = b => {
@@ -88,15 +94,61 @@ const Habilitolamesa = b => {
     botonCerrarMesa.style.visibility = 'visible'
     
     botonAgregarProducto.style.visibility='visible' 
-    const AgregarProducto = document.getElementById(`AP${b}`);   
+
+    botonAgregarProducto.addEventListener('click',() => agregarproductosfuncion(b) );
     
-    `AR${b}` =[]
-
 }
-function agregaralpedido (Id,NombreProducto){
-`AR${Id}`.unshift(localStorage.setItem(NombreProducto))
 
+    const agregarproductosfuncion = b => {
+        window.location='#openModal3';
+        var BotoneNVIAR = document.getElementById("Enviar3");
+        BotoneNVIAR.addEventListener('click',(e) =>{   
+            e.preventDefault( e);
+        var  ArregloDeProductos = [];
+        var value = document.getElementById('Producto3').value; 
+        
+             ArregloDeProductos = localStorage.getItem("Arreglo");
+             ArregloDeProductos = JSON.parse(ArregloDeProductos);
+               aux=false;
+               numero=0;
+                ArregloDeProductos.forEach(element => {
+                    
+                    if (element.Nombre==value)
+                    {   
+                        console.log('numero:'+numero)
+                        numero++;
+                        console.log(element.Nombre+'elemento'+'value'+value)
+                        valor=element.Valor;
+                        aux=true;
+                        
+                    }  
+                }); 
+                console.log('el valor de aux es '+aux)
+                    if (aux==true){ 
+                        
+                       ArreglodeMesas[b].Productos.push(valor);
+                            } 
+                     if(aux==false)
+                            {
+                                alert('producto no encontrado');
+                            }
+                      
+                    
+                            
+                            
+                           
+                        }
+                      
+                    )              
 }
+
+
+
+function MESA(dato){
+    this.Productos=[];
+    this.id=dato;   
+}
+
 function  MesaHabilitada(Id){
     
    const botonCerrarMesa = document.getElementById("CM"+Id);
@@ -117,13 +169,31 @@ function  MesaHabilitada2(b){
     const botonAgregarProducto = document.getElementById("AP"+b);
     botonCerrarMesa.style.visibility = 'hidden'
     botonAgregarProducto.style.visibility='hidden' 
-    Total=0;
-    for (let index = 0; index < `AR${b}`.length; index++) {
-         element = `AR${b}`[index];
-        Total=element.Valor;
+     var Total=0;
+    ArregloDeProductos =[];
+    ArregloDeProductos = localStorage.getItem("Arreglo");
+     ArregloDeProductos = JSON.parse(ArregloDeProductos);
+    console.log(ArreglodeMesas[b])
+    ArreglodeMesas[b].Productos.forEach(element => {
+       console.log(element+'asd'+typeof Total) 
+
+        Total=parseFloat(Total)+parseFloat(element)
+
+       });
+       for (let index = 0; index < ArreglodeMesas[b].length; index++) {
+        ArreglodeMesas[b]=0;
+           
+       }
+    alert('valor total'+ Total);
+    mesa= new MESA(b);
+    ArreglodeMesas[b]=mesa;
+    console.log(ArreglodeMesas[b]);
+     
+    
+     
+    document.getElementById("Producto3").value = ""; 
+    console.log(Total+'el total ');
     }
-    alert('valor total'+ valor);
- }
 
 
 function agregarmesa (ID) {
@@ -173,8 +243,8 @@ const botonCerrarMesa = document.getElementById(`CM${ID}`);
 botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(ID ));    
 
 
-
 }
+
 
 /* HABRIA QUE:
 VER COMO QUEREMOS CONTROLAR LOS PRODUCTOS QUE SE VENDEN (BD O JS O MEMORIA CACHE)
@@ -203,6 +273,13 @@ function Producto(dato1,dato2,dato3){
     }, false);
 
 
+
+  
+
+
+ 
+
+
     var BotoneNVIAR = document.getElementById("Enviar");
            BotoneNVIAR.addEventListener('click', function(e){ 
             var  ArregloDeProductos = [];   
@@ -212,7 +289,7 @@ function Producto(dato1,dato2,dato3){
                 ArregloDeProductos = localStorage.getItem("Arreglo");
                 ArregloDeProductos = JSON.parse(ArregloDeProductos);
                if(ArregloDeProductos ==null){
-                    console.log('entro al if')
+
                     ArregloDeProductos =  [];
                }
                
@@ -221,7 +298,7 @@ function Producto(dato1,dato2,dato3){
             ArregloDeProductos.forEach(element => {
                  
                 if (element.Nombre==Producto2.Nombre){
-                    alert("Ya esta este elemento guardado");
+                   
                     aux=true;
                 } 
 
@@ -230,19 +307,19 @@ function Producto(dato1,dato2,dato3){
                ArregloDeProductos.unshift(Producto2);
                }                      
                ArregloDeProductos.forEach(element => {
-                 
-                console.log(element)
+              
                  
                 
                });            
                localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
               
-               console.log(''+ ArregloDeProductos.length) 
+              
                           
               document.getElementById("Producto").value = ""; 
                document.getElementById("Valor").value = ""; 
                window.location='#section' ;
-               console.log('vuelta ')
+           
+
           },
         false);
 
