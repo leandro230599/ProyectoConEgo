@@ -1,202 +1,214 @@
 //ESTO SE REPITE CODIGO PERO COMO NOSE BIEN MANEJAR ESTO HABRIA Q VER  TECNICAMENTE ES IGUAAL A AGREGAR MESA 
 
+document.addEventListener('DOMContentLoaded', () => {
 
-const ArreglodeMesas =[];
-const btnAdd = document.getElementById('agregarmesa');
-btnAdd.addEventListener('click', function(){ 
-const article = document.createElement('article');
-article.classList.add('article');
-const h1 = document.createElement('h1');
-var Cantidad = localStorage.getItem("Cantidad");
-
-if (Cantidad==null){
-Cantidad=0;
-}
-h1.innerHTML="Mesa"+" "+Cantidad;
-
-h1.classList.add('titulomesa');
- 
-
-const img = document.createElement('img');
-img.classList.add('libre');
-img.src='images/libre.png';
-img.setAttribute("id",'F'+Cantidad);
-
-const p = document.createElement('p');
-const div= document.createElement('div');
-div.classList.add('probando');
-const a1 = document.createElement('Button');
-const a2 = document.createElement('Button');
-const a3 = document.createElement('Button');
-a1.innerHTML="Abrir Mesa ";
-    a1.setAttribute("id", `AM${Cantidad}`);
-    a2.innerHTML="Cerrar Mesa ";
-    a2.setAttribute("id", "CM"+Cantidad);
-    a3.innerHTML="Agregar Producto ";
-    a3.setAttribute("id", "AP"+Cantidad);
-a1.classList.add('AbrirMesa');
-a2.classList.add('CerrarMesa');
-a3.classList.add('AgregarProduct');
-div.appendChild(a1);
-div.appendChild(a2);
-div.appendChild(a3);
-article.appendChild(h1);
-article.appendChild(img);
-article.appendChild(p);
-article.appendChild(div);
-elemento = document.getElementById('section');
-article.setAttribute("id",Cantidad);
-
-elemento.appendChild(article);
- MesaHabilitada(Cantidad);
-const BotonAbrirMesa = document.getElementById(`AM${Cantidad}`);
-
-BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(Cantidad-1 ));
-const botonCerrarMesa = document.getElementById(`CM${Cantidad}`);
-
-botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(Cantidad-1 ));
-
-Cantidad++ ;
-localStorage.setItem("Cantidad", Cantidad); 
-}, false);
-
-
-
-window.onload=function() {
+    //Cuando se carga la página, cargo las mesas guardadas
+    const ArreglodeMesas =[];
+    cargarMesas(ArreglodeMesas);
     
-    var Cantidad = localStorage.getItem("Cantidad");
-   
-    if (Cantidad != null){
-        var index;
-        for ( index = 0; index < Cantidad; index++) {
-            agregarmesa(index);
-                mesa= new MESA(index);
-              
-
-               
-                ArreglodeMesas.push(mesa);
-           
-        }
-        localStorage.setItem("Cantidad", (index)); 
-      
+    const btnAdd = document.getElementById('agregarmesa');
+    const btnAddProducto = document.getElementById('AgregarProducto');
+    const btnEditarProducto = document.getElementById('EditarProducto');
+    
+    let Cantidad = localStorage.getItem("Cantidad");
+    if (Cantidad==null){
+        Cantidad=0;
     }
-    
+
+    //Si se hace click en el botón Agregar Mesa de la navegación
+    btnAdd.addEventListener('click', () => {
+        nuevaMesa = new Mesa(ArreglodeMesas.length);
+        ArreglodeMesas.push(nuevaMesa);
+        agregarMesa(Cantidad, ArreglodeMesas);
+        Cantidad++ ;
+        localStorage.setItem("Cantidad", Cantidad); 
+    });
+
+    //Si se hace click en Agregar Producto de la navegación
+    btnAddProducto.addEventListener('click', () => { 
+        abrirModalNuevoProducto();
+    })
+
+    //Si se hace click en Editar Producto de la navegación
+    btnEditarProducto.addEventListener('click', () => {
+        abrirModalEditarProducto();
+    })
+
+})
+
+const cargarMesas = arrayMesas => {
+    let Cantidad = localStorage.getItem('Cantidad');
+    if (Cantidad != null) {
+        for (let mesa = 0; mesa < Cantidad; mesa++) {
+            agregarMesa(mesa, arrayMesas);
+            nuevaMesa = new Mesa(mesa);
+            arrayMesas.push(nuevaMesa);
+        }
+        //Esto para qué?
+        //localStorage.setItem('Cantidad', (mesa));
+    }
 }
 
 const Habilitolamesa = b => {
+    
     const Foto = document.getElementById("F"+b);
     Foto.src='images/Ocupado.png';
+    
     const BotonAbrirMesa = document.getElementById("AM"+b);
-   BotonAbrirMesa.style.visibility = 'hidden'
+    BotonAbrirMesa.style.visibility = 'hidden'
 
     const botonCerrarMesa = document.getElementById("CM"+b);
     const botonAgregarProducto = document.getElementById("AP"+b);
+
     botonCerrarMesa.style.visibility = 'visible'
-    
     botonAgregarProducto.style.visibility='visible' 
-
-    botonAgregarProducto.addEventListener('click',() => agregarproductosfuncion(b) );
     
 }
 
-    const agregarproductosfuncion = b => {
-        window.location='#openModal3';
-        var BotoneNVIAR = document.getElementById("Enviar3");
-        BotoneNVIAR.addEventListener('click',(e) =>{   
-            e.preventDefault( e);
-        var  ArregloDeProductos = [];
-        var value = document.getElementById('Producto3').value; 
-        
-             ArregloDeProductos = localStorage.getItem("Arreglo");
-             ArregloDeProductos = JSON.parse(ArregloDeProductos);
-               aux=false;
-               numero=0;
-                ArregloDeProductos.forEach(element => {
-                    
-                    if (element.Nombre==value)
-                    {   
-                        console.log('numero:'+numero)
-                        numero++;
-                        console.log(element.Nombre+'elemento'+'value'+value)
-                        valor=element.Valor;
-                        aux=true;
-                        
-                    }  
-                }); 
-                console.log('el valor de aux es '+aux)
-                    if (aux==true){ 
-                        
-                       ArreglodeMesas[b].Productos.push(valor);
-                            } 
-                     if(aux==false)
-                            {
-                                alert('producto no encontrado');
-                            }
-                      
-                    
-                            
-                            
-                           
-                        }
-                      
-                    )              
+const abrirModalNuevoProducto = () => {
+
+    window.location='#openModal';
+    const btnEnviarProducto = document.getElementById('Enviar');
+    btnEnviarProducto.addEventListener('click', (e) => {
+        e.preventDefault();
+        crearNuevoProducto();
+    }); 
+}
+
+const crearNuevoProducto = () => {
+
+    let nombreProducto = document.getElementById('Producto').value;
+    let valorProducto = document.getElementById('Valor').value;
+    let ArregloDeProductos = JSON.parse(localStorage.getItem("Arreglo"));
+    
+    if (ArregloDeProductos == null) ArregloDeProductos = [];
+    nuevoProducto = new Producto(nombreProducto, valorProducto, ArregloDeProductos.length);
+    
+    //Si no hay en el arreglo un producto con el nombre del nuevo producto, lo agrego
+    if (!ArregloDeProductos.some( prod => prod.Nombre === nuevoProducto.Nombre)) {
+        ArregloDeProductos.push(nuevoProducto);
+    }
+
+    localStorage.setItem("Arreglo", JSON.stringify(ArregloDeProductos));
+    document.getElementById("Producto").value = ""; 
+    document.getElementById("Valor").value = ""; 
+    window.location='#section' ;
+    
+}
+
+const abrirModalEditarProducto = () => {
+    
+    window.location = '#openModal2';
+    const btnEnviarProductoEditar = document.getElementById('Enviar2');
+    btnEnviarProductoEditar.addEventListener('click', (e) => {
+        e.preventDefault();
+        editarProducto();
+    })
+}
+
+const editarProducto = () => {
+
+    let ArregloDeProductos = JSON.parse(localStorage.getItem("Arreglo"));
+    let nombreProductoEditar = document.getElementById('Producto2').value;
+    let valorProductoEditar = document.getElementById('Valor2').value;
+
+    if (ArregloDeProductos == null) ArregloDeProductos = [];
+    let productoEncontrado = ArregloDeProductos.filter(prod => prod.Nombre === nombreProductoEditar);
+    if (!productoEncontrado) {
+        alert('Producto no encontrado')
+        return;
+    }
+
+    console.log(productoEncontrado);
+    productoEncontrado[0].Valor = valorProductoEditar;
+
+    localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));          
+    document.getElementById("Producto").value = ""; 
+    document.getElementById("Valor").value = ""; 
+    window.location='#section' ;
+    
+
+}
+
+const CierroMesa = (b, ArreglodeMesas) => {
+    
+    const Foto = document.getElementById("F"+b);
+    Foto.src='images/Libre.png';
+    
+    const BotonAbrirMesa = document.getElementById("AM"+b);
+    BotonAbrirMesa.style.visibility = 'visible'
+   
+    const botonCerrarMesa = document.getElementById("CM"+b);
+    botonCerrarMesa.style.visibility = 'hidden'
+    
+    const botonAgregarProducto = document.getElementById("AP"+b);
+    botonAgregarProducto.style.visibility='hidden' 
+    
+    let Total=0;
+    ArregloDeProductos =[];
+    ArregloDeProductos = localStorage.getItem("Arreglo");
+    
+    ArregloDeProductos = JSON.parse(ArregloDeProductos);
+    let total = ArreglodeMesas[b].Productos.reduce((tot, valor) => {
+        return parseInt(tot) + (parseInt(valor) || 0)
+    });
+    
+    alert('valor total '+ total);
+    mesa= new Mesa(b);
+    ArreglodeMesas[b]=mesa;
+    
+    document.getElementById("Producto3").value = ""; 
+    //console.log(Total+'el total ');
+
+}
+
+const agregarProductoAMesaModal = (b, arrayMesas) => {
+    
+    window.location='#openModal3';
+    let BotoneNVIAR = document.getElementById("Enviar3");
+    BotoneNVIAR.onclick = () => agregaEvento(b, arrayMesas);            
+}
+
+const agregaEvento = (b, arrayMesas) => {
+    agregarProductoAMesa(b, arrayMesas);
+}
+
+const agregarProductoAMesa = (b, ArreglodeMesas) => {
+    
+    let  ArregloDeProductos = [];
+    let nombreProducto = document.getElementById('Producto3').value;
+    
+    ArregloDeProductos = localStorage.getItem("Arreglo");
+    ArregloDeProductos = JSON.parse(ArregloDeProductos);
+
+    if (ArregloDeProductos.some(prod => prod.Nombre === nombreProducto)) {
+        ArreglodeMesas[b].Productos.push(ArregloDeProductos.filter(prod => prod.Nombre === nombreProducto)[0].Valor);
+        return;
+    } 
+
+    alert('Producto no encontrado rey');
+                       
 }
 
 
 
-function MESA(dato){
+function Mesa(dato){
     this.Productos=[];
     this.id=dato;   
 }
 
 function  MesaHabilitada(Id){
     
-   const botonCerrarMesa = document.getElementById("CM"+Id);
-   
-   const botonAgregarProducto = document.getElementById("AP"+Id);
-   botonCerrarMesa.style.visibility = 'hidden'
-   botonAgregarProducto.style.visibility='hidden' 
-}
-function  MesaHabilitada2(b){
-  
-    const Foto = document.getElementById("F"+b);
-    Foto.src='images/Libre.png';
-    const BotonAbrirMesa = document.getElementById("AM"+b);
-   BotonAbrirMesa.style.visibility = 'visible'
-   
-    const botonCerrarMesa = document.getElementById("CM"+b);
-    
-    const botonAgregarProducto = document.getElementById("AP"+b);
+    const botonCerrarMesa = document.getElementById("CM"+Id);
+
+    const botonAgregarProducto = document.getElementById("AP"+Id);
     botonCerrarMesa.style.visibility = 'hidden'
     botonAgregarProducto.style.visibility='hidden' 
-     var Total=0;
-    ArregloDeProductos =[];
-    ArregloDeProductos = localStorage.getItem("Arreglo");
-     ArregloDeProductos = JSON.parse(ArregloDeProductos);
-    console.log(ArreglodeMesas[b])
-    ArreglodeMesas[b].Productos.forEach(element => {
-       console.log(element+'asd'+typeof Total) 
 
-        Total=parseFloat(Total)+parseFloat(element)
-
-       });
-       for (let index = 0; index < ArreglodeMesas[b].length; index++) {
-        ArreglodeMesas[b]=0;
-           
-       }
-    alert('valor total'+ Total);
-    mesa= new MESA(b);
-    ArreglodeMesas[b]=mesa;
-    console.log(ArreglodeMesas[b]);
-     
-    
-     
-    document.getElementById("Producto3").value = ""; 
-    console.log(Total+'el total ');
-    }
+}
 
 
-function agregarmesa (ID) {
+const agregarMesa = (ID, arrayMesas) => {
     const article = document.createElement('article');
     article.classList.add('article');
     const h1 = document.createElement('h1');
@@ -213,7 +225,7 @@ function agregarmesa (ID) {
     div.classList.add('probando');
     const a1 = document.createElement('Button');
     const a2 = document.createElement('Button');
-    const a3 = document.createElement('Button');
+    const a3 = document.createElement('span');
     a1.innerHTML="Abrir Mesa ";
     a1.setAttribute("id", "AM"+ID);
     a2.innerHTML="Cerrar Mesa ";
@@ -235,14 +247,15 @@ function agregarmesa (ID) {
     elemento.appendChild(article);
     MesaHabilitada(ID);
     
-const BotonAbrirMesa = document.getElementById(`AM${ID}`);
+    const BotonAbrirMesa = document.getElementById(`AM${ID}`);
+    BotonAbrirMesa.addEventListener('click', () => Habilitolamesa(ID));
 
-BotonAbrirMesa.addEventListener('click', ( ) => Habilitolamesa(ID));
-const botonCerrarMesa = document.getElementById(`CM${ID}`);
+    const botonCerrarMesa = document.getElementById(`CM${ID}`);
+    botonCerrarMesa.addEventListener('click', ( ) => CierroMesa(ID, arrayMesas));
 
-botonCerrarMesa.addEventListener('click', ( ) => MesaHabilitada2(ID ));    
-
-
+    const botonAgregarProducto = document.getElementById(`AP${ID}`);
+    botonAgregarProducto.addEventListener('click', () => agregarProductoAMesaModal(ID, arrayMesas));
+    
 }
 
 
@@ -262,117 +275,3 @@ function Producto(dato1,dato2,dato3){
     this.Valor=dato2;
     this.id=dato3;
 }
-
-        const AgregarProducto = document.getElementById("AgregarProducto");
-       
-        AgregarProducto.addEventListener('click', function(){ 
-            
-            window.location='#openModal';  
-           
-       
-    }, false);
-
-
-
-  
-
-
- 
-
-
-    var BotoneNVIAR = document.getElementById("Enviar");
-           BotoneNVIAR.addEventListener('click', function(e){ 
-            var  ArregloDeProductos = [];   
-            e.preventDefault( e);
-               var value = document.getElementById('Producto').value;
-               var value2 = document.getElementById('Valor').value;
-                ArregloDeProductos = localStorage.getItem("Arreglo");
-                ArregloDeProductos = JSON.parse(ArregloDeProductos);
-               if(ArregloDeProductos ==null){
-
-                    ArregloDeProductos =  [];
-               }
-               
-            Producto2 = new Producto(value,value2,ArregloDeProductos.length);  
-            aux=false;
-            ArregloDeProductos.forEach(element => {
-                 
-                if (element.Nombre==Producto2.Nombre){
-                   
-                    aux=true;
-                } 
-
-               });
-               if(aux==false){
-               ArregloDeProductos.unshift(Producto2);
-               }                      
-               ArregloDeProductos.forEach(element => {
-              
-                 
-                
-               });            
-               localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
-              
-              
-                          
-              document.getElementById("Producto").value = ""; 
-               document.getElementById("Valor").value = ""; 
-               window.location='#section' ;
-           
-
-          },
-        false);
-
-        
-   const EditarProducto = document.getElementById("EditarProducto");
-       
-        EditarProducto.addEventListener('click', function(){ 
-            
-            window.location='#openModal2';  
-           
-       
-    }, false);  
-
-
-    var BotoneNVIAR2 = document.getElementById("Enviar2");
-    BotoneNVIAR2.addEventListener('click', function(e){ 
-     var  ArregloDeProductos = [];   
-     e.preventDefault( e);
-        var value = document.getElementById('Producto2').value;
-        var value2 = document.getElementById('Valor2').value;
-         ArregloDeProductos = localStorage.getItem("Arreglo");
-         ArregloDeProductos = JSON.parse(ArregloDeProductos);
-        if(ArregloDeProductos ==null){
-           
-             ArregloDeProductos =  [];
-        }
-        
-    
-     aux=false;
-     ArregloDeProductos.forEach(element => {
-         if (element.Nombre==value){
-            element.Nombre=value;
-            element.Valor=value2; 
-           
-            aux=true;
-         } 
-         
-        });
-        if (aux){
-            alert("Producto modificado")
-        }else{
-            alert("No se encontro el producto")
-        }
-        
-                            
-                
-        localStorage.setItem('Arreglo', JSON.stringify(ArregloDeProductos));
-       
-      
-                   
-       document.getElementById("Producto").value = ""; 
-        document.getElementById("Valor").value = ""; 
-        window.location='#section' ;
-        
-   },
- false);
