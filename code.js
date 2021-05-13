@@ -190,18 +190,11 @@ const agregarProductoAMesa = (b, ArreglodeMesas) => {
                        
 }
 
-
-
-function Mesa(dato){
-    this.Productos=[];
-    this.id=dato;   
-}
-
 function  MesaHabilitada(Id){
     
     const botonCerrarMesa = document.getElementById("CM"+Id);
-
     const botonAgregarProducto = document.getElementById("AP"+Id);
+    
     botonCerrarMesa.style.visibility = 'hidden'
     botonAgregarProducto.style.visibility='hidden' 
 
@@ -258,6 +251,17 @@ const agregarMesa = (ID, arrayMesas) => {
     
 }
 
+function Producto(dato1,dato2,dato3){
+    this.Nombre=dato1;
+    this.Valor=dato2;
+    this.id=dato3;
+}
+
+function Mesa(dato){
+    this.Productos=[];
+    this.id=dato;   
+}
+
 
 /* HABRIA QUE:
 VER COMO QUEREMOS CONTROLAR LOS PRODUCTOS QUE SE VENDEN (BD O JS O MEMORIA CACHE)
@@ -267,11 +271,3 @@ VER LOS PAGOS(con lo de arriba generar el valor y ofrecer medios de pago)*/
 
 // Voy a hacer el objeto Producto que va a tener , Nombre de producto valor e id 
 
-
-
-
-function Producto(dato1,dato2,dato3){
-    this.Nombre=dato1;
-    this.Valor=dato2;
-    this.id=dato3;
-}
